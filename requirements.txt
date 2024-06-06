@@ -1,0 +1,7 @@
+yfinance
+pandas
+scikit-learn
+xgboost
+
+komenda:
+pip install yfinance pandas scikit-learn xgboost
