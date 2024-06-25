@@ -4,6 +4,8 @@ from sklearn.model_selection import GridSearchCV, train_test_split, TimeSeriesSp
 from sklearn.metrics import precision_score, accuracy_score, recall_score, f1_score
 from sklearn.ensemble import RandomForestClassifier, VotingClassifier, AdaBoostClassifier
 from xgboost import XGBClassifier
+import joblib
+
 data = yf.Ticker("AAPL")
 data = data.history(period="max")
 data
@@ -88,6 +90,8 @@ print('Test Accuracy score: ', accuracy_score(y_test, ada_test_preds))
 print('Test Recall score: ', recall_score(y_test, ada_test_preds))
 print('Test F1 score: ', f1_score(y_test, ada_test_preds))
 
+joblib.dump(ada_model, 'ada_model.joblib')
+
 rf_model = RandomForestClassifier(random_state=1)
 param_grid_rf = {
     'n_estimators': [100, 300, 500, 1000, 2000],
@@ -109,6 +113,9 @@ print('Test Precision score: ', precision_score(y_test, rf_test_preds))
 print('Test Accuracy score: ', accuracy_score(y_test, rf_test_preds))
 print('Test Recall score: ', recall_score(y_test, rf_test_preds))
 print('Test F1 score: ', f1_score(y_test, rf_test_preds))
+
+joblib.dump(rf_model, 'rf_model.joblib')
+
 xgb_model = XGBClassifier(random_state=1)
 param_grid_xgb = {
     'n_estimators': [100, 300, 500, 1000, 2000],
@@ -130,6 +137,9 @@ print('Test Precision score: ', precision_score(y_test, test_preds_xgb))
 print('Test Accuracy score: ', accuracy_score(y_test, test_preds_xgb))
 print('Test Recall score: ', recall_score(y_test, test_preds_xgb))
 print('Test F1 score: ', f1_score(y_test, test_preds_xgb))
+
+joblib.dump(xgb_model, 'xgb_model.joblib')
+
 voting_model = VotingClassifier(estimators=[('xgb', xgb_model), ('rf', rf_model), ('ada', ada_model)], voting='soft')
 voting_model.fit(X_train, y_train)
 test_preds_voting = voting_model.predict(X_test)
@@ -137,3 +147,5 @@ print('Test Precision score: ', precision_score(y_test, test_preds_voting))
 print('Test Accuracy score: ', accuracy_score(y_test, test_preds_voting))
 print('Test Recall score: ', recall_score(y_test, test_preds_voting))
 print('Test F1 score: ', f1_score(y_test, test_preds_voting))
+
+joblib.dump(voting_model, 'voting_model.joblib')
