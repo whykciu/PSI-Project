@@ -77,6 +77,7 @@ Model ten może mieć znacznie bardziej zadowalające wyniki i aby to uzyskać m
     * pandas
     * scikit-learn
     * xgboost
+    * joblib
 
 #### Instalacja i uruchomienie
 Instalacja wymaganych bibliotek:
@@ -91,10 +92,15 @@ jupyter notebook
 Która przeniesie cię do przeglądarki z gotowym plikiem.
 
 Inna opcja to uruchomienie samego pliku Python. Początkowo przejdź do folderu z plikiem `.py`
-Następnie wpisz komendę:
+Aby uruchomić naukę i zapis modeli wpisz komendę:
 ```
 python stock_market_pred.py
 ```   
+
+Aby wykonać predykcję dla zapisanych modeli uruchom:
+```
+python predict_latest.py
+```  
 #### Dziękuje za poświęcony czas!
 
 #### Autor projektu: Hubert Buś
